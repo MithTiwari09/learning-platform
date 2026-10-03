@@ -1,4 +1,5 @@
 import type { Lesson } from "../../types";
+import { BOOKSHOP_SEED } from "../../datasets/bookshop";
 
 export const whereLesson: Lesson = {
   status: "ready",
@@ -8,7 +9,7 @@ export const whereLesson: Lesson = {
   minutes: 15,
   summary: "Keep only the rows you care about, like books under $10 or orders still pending.",
   video: { title: "WHERE in 3 minutes" },
-  dataset: "bookshop",
+  practiceDb: { seed: BOOKSHOP_SEED, showBookshopTables: true },
   body: `
 So far every query has returned every row. \`WHERE\` lets you keep only the rows you care about.
 

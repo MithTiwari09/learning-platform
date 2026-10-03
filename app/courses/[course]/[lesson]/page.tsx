@@ -103,7 +103,7 @@ export default async function LessonPage(props: PageProps<"/courses/[course]/[le
 
       <aside className="rail">
         <LessonProgressPanel lesson={lesson} />
-        {lesson.dataset && <SchemaPanel />}
+        {lesson.practiceDb?.showBookshopTables && <SchemaPanel />}
       </aside>
     </div>
   );

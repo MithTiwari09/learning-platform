@@ -1,10 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Database, SqlJsStatic } from "sql.js";
 import type { Lesson } from "@/lib/content/types";
-import { DATASETS } from "@/lib/content/datasets/bookshop";
-import { freshDatabase } from "@/lib/sql/grade";
+import { PracticeDb } from "@/lib/sql/practice-db";
 import { loadSqlJs } from "@/lib/sql/load";
 import { useHydrated, useProgress } from "@/lib/progress";
 import { SqlExerciseCard } from "./SqlExerciseCard";
@@ -12,25 +10,23 @@ import { SortExerciseCard } from "./SortExerciseCard";
 import { OrderExerciseCard } from "./OrderExerciseCard";
 import { JourneyExerciseCard } from "./JourneyExerciseCard";
 
-type Engine = { SQL: SqlJsStatic; db: Database; seed: string };
-
 export function LessonPractice({ lesson }: { lesson: Lesson }) {
   const hydrated = useHydrated();
   const progress = useProgress();
   const needsSql = lesson.exercises.some((e) => e.type === "sql");
-  const [engine, setEngine] = useState<Engine | null>(null);
+  const [engine, setEngine] = useState<PracticeDb | null>(null);
   const [engineError, setEngineError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!needsSql || !lesson.dataset) return;
-    let db: Database | null = null;
+    const seed = lesson.practiceDb?.seed;
+    if (!needsSql || seed === undefined) return;
+    let practice: PracticeDb | null = null;
     let cancelled = false;
-    const seed = DATASETS[lesson.dataset];
     loadSqlJs().then(
       (SQL) => {
         if (cancelled) return;
-        db = freshDatabase(SQL, seed);
-        setEngine({ SQL, db, seed });
+        practice = new PracticeDb(SQL, seed);
+        setEngine(practice);
       },
       () => {
         if (!cancelled) setEngineError("The practice database could not load. Check your connection and reload the page.");
@@ -38,9 +34,9 @@ export function LessonPractice({ lesson }: { lesson: Lesson }) {
     );
     return () => {
       cancelled = true;
-      db?.close();
+      practice?.close();
     };
-  }, [needsSql, lesson.dataset]);
+  }, [needsSql, lesson.practiceDb?.seed]);
 
   if (!hydrated) return <div className="empty">Loading practice…</div>;
 

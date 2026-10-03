@@ -84,4 +84,3 @@ export const BOOKSHOP_SCHEMA: { table: string; rows: number; columns: [string, s
   },
 ];
 
-export const DATASETS = { bookshop: BOOKSHOP_SEED } as const;

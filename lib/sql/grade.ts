@@ -68,7 +68,11 @@ export function gradeSql(SQL: SqlJsStatic, seed: string, exercise: SqlExercise, 
     }
     let expected = runSql(ref, exercise.answer);
     if (exercise.checkQuery) expected = runSql(ref, exercise.checkQuery);
-    return compareResults(actual, expected, exercise.ordered ?? false);
+    const verdict = compareResults(actual, expected, exercise.ordered ?? false);
+    if (!verdict.ok && exercise.checkQuery) {
+      return { ok: false, reason: exercise.mismatch ?? "Compare your SQL with the task carefully." };
+    }
+    return verdict;
   } finally {
     mine.close();
     ref.close();
