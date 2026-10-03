@@ -36,6 +36,11 @@ describe("compareResults", () => {
     const v = compareResults(r([[1, "x"]]), r([[1, "x"], [2, "y"]]), false);
     expect("reason" in v && v.reason).toMatch(/has 1 row, but the right answer has 2/);
   });
+
+  it("says 'no rows' for an empty result instead of counting columns", () => {
+    const v = compareResults({ columns: [], values: [] }, r([[1, "x"], [2, "y"]]), false);
+    expect("reason" in v && v.reason).toMatch(/returned no rows, but the right answer has 2/);
+  });
 });
 
 describe("gradeSql", () => {
