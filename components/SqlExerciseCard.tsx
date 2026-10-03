@@ -126,13 +126,15 @@ function errorText(err: unknown): string {
   const message = err instanceof Error ? err.message : String(err);
   const tip = /already exists/.test(message)
     ? " You may have run this before. Press Reset to start again with a fresh practice database."
-    : "";
+    : /within a transaction/.test(message)
+      ? " A transaction from an earlier run is still open. Press Reset to start again with a fresh practice database."
+      : "";
   return `Error: ${message}.${tip}`;
 }
 
 function ResultTable({ result }: { result: QueryResult }) {
   if (!result.columns.length) {
-    return <div className="empty">It ran without errors and returned no rows. (CREATE, ALTER and DROP never return rows.)</div>;
+    return <div className="empty">It ran without errors and returned no rows. (Commands that change structure or data, like CREATE, INSERT or COMMIT, never return rows.)</div>;
   }
   return (
     <>

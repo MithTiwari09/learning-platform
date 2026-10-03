@@ -10,7 +10,7 @@ First course: **SQL from Zero**. It starts with plain-words intuition for how a 
 - Lesson page: video slot, lesson text, key ideas, practice, quick quiz, previous/next
 - Practice types: a real SQL editor running SQLite in the browser (sql.js) with automatic answer checking, "sort it" and "put in order" activities, and an animated "follow the query" walk-through
 - Progress and XP saved in the learner's browser (accounts come in stage 2)
-- Content: Module 1 (6 lessons) and lesson 19, Filtering with WHERE; the other lessons are listed as coming soon
+- Content: all 33 lessons of SQL from Zero, across 8 modules, from how the engine works to a final business report
 
 ## Run it
 
@@ -23,7 +23,7 @@ npm run lint && npm run typecheck && npm run build
 
 ## Adding a lesson
 
-Lessons are plain TypeScript data in `lib/content/courses/<course>/`. Each one has a markdown body, key ideas, exercises and quiz questions (see `lib/content/types.ts`). To publish a planned lesson, replace its `planned(...)` entry in the course's `index.ts` with the full lesson.
+Lessons are plain TypeScript data in `lib/content/courses/<course>/`. Each one has a markdown body, key ideas, exercises and quiz questions (see `lib/content/types.ts`). Each module has its own file (`module-1.ts` to `module-8.ts`). A lesson can also be listed before it's written as `{ status: "planned", number, slug, title }`, which shows it as coming soon.
 
 `npm test` checks every lesson: each SQL exercise's answer must run against the practice database and pass its own check, broken starter queries must fail, quiz answers must exist, and lesson numbers must be in order.
 
