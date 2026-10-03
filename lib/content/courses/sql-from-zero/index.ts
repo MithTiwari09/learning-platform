@@ -1,14 +1,12 @@
-import type { Course, PlannedLesson } from "../../types";
+import type { Course } from "../../types";
 import { module1Lessons } from "./module-1";
 import { module2Lessons } from "./module-2";
 import { module3Lessons } from "./module-3";
 import { module4Lessons } from "./module-4";
 import { module5Lessons } from "./module-5";
 import { module6Lessons } from "./module-6";
-
-function planned(number: number, slug: string, title: string): PlannedLesson {
-  return { status: "planned", number, slug, title };
-}
+import { module7Lessons } from "./module-7";
+import { module8Lessons } from "./module-8";
 
 export const sqlFromZero: Course = {
   slug: "sql-from-zero",
@@ -59,16 +57,13 @@ export const sqlFromZero: Course = {
       number: 7,
       title: "DCL: who can do what",
       description: "Users, roles and permissions.",
-      lessons: [planned(31, "grant-and-revoke", "GRANT and REVOKE")],
+      lessons: module7Lessons,
     },
     {
       number: 8,
       title: "Final project",
       description: "Build the bookshop end to end and write a business report.",
-      lessons: [
-        planned(32, "build-the-bookshop", "Build the bookshop database"),
-        planned(33, "business-report", "Bookshop business report"),
-      ],
+      lessons: module8Lessons,
     },
   ],
 };
