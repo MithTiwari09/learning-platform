@@ -1,7 +1,6 @@
 import initSqlJs, { type SqlJsStatic } from "sql.js";
 import { beforeAll, describe, expect, it } from "vitest";
 import { courses, readyLessons, allLessons } from "../lib/content";
-import { DATASETS } from "../lib/content/datasets/bookshop";
 import { freshDatabase, gradeSql, runSql } from "../lib/sql/grade";
 
 let SQL: SqlJsStatic;
@@ -33,8 +32,8 @@ for (const course of courses) {
         it("has SQL exercises whose answers run and pass, and whose starters don't", () => {
           for (const e of lesson.exercises) {
             if (e.type !== "sql") continue;
-            expect(lesson.dataset, "SQL exercises need a dataset").toBeDefined();
-            const seed = DATASETS[lesson.dataset!];
+            expect(lesson.practiceDb, "SQL exercises need a practice database").toBeDefined();
+            const seed = lesson.practiceDb!.seed;
             const db = freshDatabase(SQL, seed);
             expect(runSql(db, e.answer).values.length + (e.checkQuery ? 1 : 0)).toBeGreaterThan(0);
             db.close();

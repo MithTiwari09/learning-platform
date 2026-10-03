@@ -13,6 +13,8 @@ export type SqlExercise = {
    * learner's SQL (and after the answer) and compare those results instead.
    */
   checkQuery?: string;
+  /** Shown instead of the row-by-row explanation when the checkQuery results differ. */
+  mismatch?: string;
   hint: string;
   xp: number;
 };
@@ -68,8 +70,12 @@ export type Lesson = {
   /** Markdown. */
   body: string;
   keyIdeas: string[];
-  /** Practice database loaded for SQL exercises. */
-  dataset?: "bookshop";
+  /** Practice database loaded fresh for SQL exercises. */
+  practiceDb?: {
+    seed: string;
+    /** Show the bookshop's tables in the side panel. */
+    showBookshopTables?: boolean;
+  };
   exercises: Exercise[];
   quiz: QuizQuestion[];
 };

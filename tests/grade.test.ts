@@ -4,6 +4,8 @@ import { BOOKSHOP_SEED } from "../lib/content/datasets/bookshop";
 import { whereLesson } from "../lib/content/courses/sql-from-zero/lesson-where";
 import type { SqlExercise } from "../lib/content/types";
 import { compareResults, gradeSql } from "../lib/sql/grade";
+import { readyLessons } from "../lib/content";
+import { sqlFromZero } from "../lib/content/courses/sql-from-zero";
 
 let SQL: SqlJsStatic;
 beforeAll(async () => {
@@ -76,5 +78,45 @@ describe("gradeSql", () => {
     };
     expect(gradeSql(SQL, BOOKSHOP_SEED, update, "UPDATE books SET price = price + 1 WHERE genre = 'Fantasy';").ok).toBe(true);
     expect(gradeSql(SQL, BOOKSHOP_SEED, update, "UPDATE books SET price = price + 1;").ok).toBe(false);
+  });
+});
+
+describe("gradeSql for table-building exercises", () => {
+  const lesson = (slug: string) => readyLessons(sqlFromZero).find((l) => l.slug === slug)!;
+  const grade = (slug: string, id: string, sql: string) => {
+    const l = lesson(slug);
+    const e = l.exercises.find((x) => x.id === id) as SqlExercise;
+    return gradeSql(SQL, l.practiceDb!.seed, e, sql);
+  };
+
+  it("accepts lowercase types and different spacing", () => {
+    expect(grade("create-table", "create-authors", "create table authors(id integer,name text,country text)")).toEqual({ ok: true });
+  });
+
+  it("rejects a wrong type with the exercise's own explanation", () => {
+    const v = grade("create-table", "create-authors", "CREATE TABLE authors (id TEXT, name TEXT, country TEXT)");
+    expect(v.ok).toBe(false);
+    expect("reason" in v && v.reason).toMatch(/authors table doesn't match/);
+  });
+
+  it("accepts the long FOREIGN KEY form", () => {
+    const sql =
+      "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL, author_id INTEGER, FOREIGN KEY (author_id) REFERENCES authors(id))";
+    expect(grade("foreign-keys", "books-reference-authors", sql)).toEqual({ ok: true });
+  });
+
+  it("rejects a missing link", () => {
+    const sql = "CREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL, author_id INTEGER)";
+    expect(grade("foreign-keys", "books-reference-authors", sql).ok).toBe(false);
+  });
+
+  it("rejects a missing UNIQUE rule", () => {
+    const sql =
+      "CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT NOT NULL, email TEXT, country TEXT DEFAULT 'Unknown')";
+    expect(grade("constraints", "customers-with-rules", sql).ok).toBe(false);
+  });
+
+  it("rejects dropping the wrong table", () => {
+    expect(grade("alter-and-drop", "drop-promotions", "DROP TABLE books").ok).toBe(false);
   });
 });

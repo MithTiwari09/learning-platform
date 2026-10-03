@@ -1,16 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import type { Database, SqlJsStatic } from "sql.js";
 import type { SqlExercise } from "@/lib/content/types";
 import { gradeSql, runSql, type QueryResult } from "@/lib/sql/grade";
+import type { PracticeDb } from "@/lib/sql/practice-db";
 import { markSolved, saveDraft } from "@/lib/progress";
 import { Feedback, type FeedbackState } from "./Feedback";
 
 type Props = {
   lessonSlug: string;
   exercise: SqlExercise;
-  engine: { SQL: SqlJsStatic; db: Database; seed: string } | null;
+  engine: PracticeDb | null;
   engineError: string | null;
   solved: boolean;
   draft: string | undefined;
@@ -32,11 +32,13 @@ export function SqlExerciseCard({ lessonSlug, exercise, engine, engineError, sol
       setFeedback({ tone: "no", text: "Type a query first." });
       return;
     }
+    // Checking always starts from the lesson's starting database, so earlier runs can't get in the way.
+    if (check) engine.reset();
     try {
       setResult(runSql(engine.db, sql));
     } catch (err) {
       setResult(null);
-      setFeedback({ tone: "err", text: `Error: ${err instanceof Error ? err.message : String(err)}` });
+      setFeedback({ tone: "err", text: errorText(err) });
       return;
     }
     if (!check) {
@@ -48,7 +50,7 @@ export function SqlExerciseCard({ lessonSlug, exercise, engine, engineError, sol
       markSolved(lessonSlug, exercise.id);
       setFeedback({ tone: "ok", text: `Correct, nice work. +${exercise.xp} XP.` });
     } else if ("error" in verdict) {
-      setFeedback({ tone: "err", text: `Error: ${verdict.error}` });
+      setFeedback({ tone: "err", text: errorText(verdict.error) });
     } else {
       setFeedback({ tone: "no", text: `Not quite yet. ${verdict.reason} Press Hint if you're stuck.` });
     }
@@ -97,6 +99,7 @@ export function SqlExerciseCard({ lessonSlug, exercise, engine, engineError, sol
           className="btn"
           onClick={() => {
             update(exercise.starter);
+            engine?.reset();
             setResult(null);
             setFeedback(null);
           }}
@@ -119,8 +122,18 @@ export function SqlExerciseCard({ lessonSlug, exercise, engine, engineError, sol
   );
 }
 
+function errorText(err: unknown): string {
+  const message = err instanceof Error ? err.message : String(err);
+  const tip = /already exists/.test(message)
+    ? " You may have run this before. Press Reset to start again with a fresh practice database."
+    : "";
+  return `Error: ${message}.${tip}`;
+}
+
 function ResultTable({ result }: { result: QueryResult }) {
-  if (!result.columns.length) return <div className="empty">The query ran but returned no rows.</div>;
+  if (!result.columns.length) {
+    return <div className="empty">It ran without errors and returned no rows. (CREATE, ALTER and DROP never return rows.)</div>;
+  }
   return (
     <>
       <div className="meta">

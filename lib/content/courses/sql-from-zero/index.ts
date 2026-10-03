@@ -1,5 +1,6 @@
 import type { Course, PlannedLesson } from "../../types";
 import { module1Lessons } from "./module-1";
+import { module2Lessons } from "./module-2";
 import { whereLesson } from "./lesson-where";
 
 function planned(number: number, slug: string, title: string): PlannedLesson {
@@ -25,14 +26,7 @@ export const sqlFromZero: Course = {
       number: 2,
       title: "DDL: building the structure",
       description: "Create the bookshop's tables, with keys and rules.",
-      lessons: [
-        planned(7, "create-table", "Your first table with CREATE TABLE"),
-        planned(8, "data-types", "Data types: numbers, text, dates"),
-        planned(9, "primary-keys", "Primary keys"),
-        planned(10, "constraints", "Constraints: NOT NULL, UNIQUE, DEFAULT, CHECK"),
-        planned(11, "foreign-keys", "Foreign keys"),
-        planned(12, "alter-and-drop", "Changing and removing tables"),
-      ],
+      lessons: module2Lessons,
     },
     {
       number: 3,
