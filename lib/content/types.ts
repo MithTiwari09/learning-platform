@@ -66,7 +66,13 @@ export type Lesson = {
   title: string;
   minutes: number;
   summary: string;
-  video: { title: string };
+  video: {
+    title: string;
+    /** Path under public/, e.g. "/videos/sql-01-what-is-a-database.mp4". Without it the page shows "coming soon". */
+    src?: string;
+    /** Still image shown before the video plays. */
+    poster?: string;
+  };
   /** Markdown. */
   body: string;
   keyIdeas: string[];

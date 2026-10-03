@@ -9,7 +9,11 @@ const whatIsADatabase: Lesson = {
   title: "What is a database?",
   minutes: 8,
   summary: "Why apps keep their data in databases, and what SQL is for.",
-  video: { title: "A library, not a pile of books" },
+  video: {
+    title: "A library, not a pile of books",
+    src: "/videos/sql-01-what-is-a-database.mp4",
+    poster: "/videos/sql-01-what-is-a-database.jpg",
+  },
   body: `
 Imagine a bookshop that keeps its records in a notebook. Every time someone buys a book, the owner writes it down. That works for ten customers. With ten thousand customers, finding "everything Yuki bought last year" means flipping through hundreds of pages.
 

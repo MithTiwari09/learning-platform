@@ -45,17 +45,26 @@ export default async function LessonPage(props: PageProps<"/courses/[course]/[le
           </p>
         </section>
 
-        <section aria-label="Lesson video" className="video">
-          <div className="play" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 20 20">
-              <path d="M5 3l12 7-12 7z" />
-            </svg>
-          </div>
-          <div>
-            <strong>Video: {lesson.video.title}</strong>
-            <small>The narrated video for this lesson is coming soon. The lesson below covers the same ideas.</small>
-          </div>
-        </section>
+        {lesson.video.src ? (
+          <section aria-label="Lesson video" className="video-player">
+            <video controls playsInline preload="metadata" poster={lesson.video.poster} src={lesson.video.src}>
+              Your browser can&apos;t play this video. The lesson below covers the same ideas.
+            </video>
+            <small>Video: {lesson.video.title}</small>
+          </section>
+        ) : (
+          <section aria-label="Lesson video" className="video">
+            <div className="play" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20">
+                <path d="M5 3l12 7-12 7z" />
+              </svg>
+            </div>
+            <div>
+              <strong>Video: {lesson.video.title}</strong>
+              <small>The narrated video for this lesson is coming soon. The lesson below covers the same ideas.</small>
+            </div>
+          </section>
+        )}
 
         <section>
           <h2>The lesson</h2>
