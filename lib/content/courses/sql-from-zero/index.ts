@@ -2,7 +2,7 @@ import type { Course, PlannedLesson } from "../../types";
 import { module1Lessons } from "./module-1";
 import { module2Lessons } from "./module-2";
 import { module3Lessons } from "./module-3";
-import { whereLesson } from "./lesson-where";
+import { module4Lessons } from "./module-4";
 
 function planned(number: number, slug: string, title: string): PlannedLesson {
   return { status: "planned", number, slug, title };
@@ -39,15 +39,7 @@ export const sqlFromZero: Course = {
       number: 4,
       title: "DQL: asking questions",
       description: "SELECT, filtering, sorting and summarising.",
-      lessons: [
-        planned(17, "select", "SELECT and choosing columns"),
-        planned(18, "order-by-and-limit", "Sorting and limiting"),
-        whereLesson,
-        planned(20, "and-or-in-like", "AND, OR, IN, BETWEEN and LIKE"),
-        planned(21, "null", "Missing values: NULL"),
-        planned(22, "aggregates", "Counting and totals"),
-        planned(23, "group-by", "GROUP BY and HAVING"),
-      ],
+      lessons: module4Lessons,
     },
     {
       number: 5,

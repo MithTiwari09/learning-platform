@@ -23,6 +23,14 @@ export function freshDatabase(SQL: SqlJsStatic, seed: string): Database {
 
 /** Compare a learner's result with the expected one. Column names may differ (aliases are fine). */
 export function compareResults(actual: QueryResult, expected: QueryResult, ordered: boolean): Verdict {
+  // An empty result comes back with no columns at all, so say "no rows" rather than "0 columns".
+  if (actual.values.length === 0 && expected.values.length > 0) {
+    const n = expected.values.length;
+    return {
+      ok: false,
+      reason: `Your query returned no rows, but the right answer has ${n}. Check your condition.`,
+    };
+  }
   if (actual.columns.length !== expected.columns.length) {
     const n = expected.columns.length;
     return {
