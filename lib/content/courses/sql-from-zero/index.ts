@@ -3,6 +3,7 @@ import { module1Lessons } from "./module-1";
 import { module2Lessons } from "./module-2";
 import { module3Lessons } from "./module-3";
 import { module4Lessons } from "./module-4";
+import { module5Lessons } from "./module-5";
 
 function planned(number: number, slug: string, title: string): PlannedLesson {
   return { status: "planned", number, slug, title };
@@ -45,12 +46,7 @@ export const sqlFromZero: Course = {
       number: 5,
       title: "Combining tables",
       description: "Joins and subqueries.",
-      lessons: [
-        planned(24, "why-several-tables", "Why data lives in several tables"),
-        planned(25, "inner-join", "INNER JOIN"),
-        planned(26, "left-join", "LEFT JOIN"),
-        planned(27, "subqueries-and-case", "Subqueries and CASE WHEN"),
-      ],
+      lessons: module5Lessons,
     },
     {
       number: 6,
