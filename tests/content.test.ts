@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import initSqlJs, { type SqlJsStatic } from "sql.js";
 import { beforeAll, describe, expect, it } from "vitest";
 import { courses, readyLessons, allLessons } from "../lib/content";
@@ -18,6 +20,12 @@ for (const course of courses) {
 
     for (const lesson of readyLessons(course)) {
       describe(lesson.title, () => {
+        it("has video files that exist in public/", () => {
+          for (const file of [lesson.video.src, lesson.video.poster]) {
+            if (file) expect(existsSync(join("public", file)), file).toBe(true);
+          }
+        });
+
         it("has valid quiz answers", () => {
           for (const q of lesson.quiz) expect(q.answer).toBeLessThan(q.choices.length);
         });

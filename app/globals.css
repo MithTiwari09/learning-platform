@@ -473,6 +473,20 @@ a.lesson-row:hover .lesson-title {
   display: block;
 }
 
+.video-player video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  background: #000;
+}
+
+.video-player small {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+}
+
 .prose {
   max-width: 70ch;
 }
