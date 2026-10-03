@@ -81,7 +81,7 @@ describe("gradeSql", () => {
   });
 });
 
-describe("gradeSql for table-building exercises", () => {
+describe("gradeSql for exercises that change structure or data", () => {
   const lesson = (slug: string) => readyLessons(sqlFromZero).find((l) => l.slug === slug)!;
   const grade = (slug: string, id: string, sql: string) => {
     const l = lesson(slug);
@@ -114,6 +114,27 @@ describe("gradeSql for table-building exercises", () => {
     const sql =
       "CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT NOT NULL, email TEXT, country TEXT DEFAULT 'Unknown')";
     expect(grade("constraints", "customers-with-rules", sql).ok).toBe(false);
+  });
+
+  it("accepts an UPDATE that targets the row by id instead of title", () => {
+    expect(grade("update", "new-price", "UPDATE books SET price = 19.99 WHERE id = 12")).toEqual({ ok: true });
+  });
+
+  it("rejects an UPDATE without WHERE", () => {
+    expect(grade("update", "new-price", "UPDATE books SET price = 19.99").ok).toBe(false);
+  });
+
+  it("accepts an INSERT that gives the next id explicitly", () => {
+    const sql =
+      "INSERT INTO books VALUES (21, 'The Mysterious Affair at Styles', 6, 'Mystery', 8.99, 1920, 20)";
+    expect(grade("insert", "add-book", sql)).toEqual({ ok: true });
+  });
+
+  it("reports the constraint error from a broken INSERT", () => {
+    const l = lesson("when-rules-are-broken");
+    const e = l.exercises.find((x) => x.id === "fix-missing-author") as SqlExercise;
+    const v = gradeSql(SQL, l.practiceDb!.seed, e, e.starter);
+    expect("error" in v && v.error).toMatch(/FOREIGN KEY constraint failed/);
   });
 
   it("rejects dropping the wrong table", () => {

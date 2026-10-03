@@ -1,6 +1,7 @@
 import type { Course, PlannedLesson } from "../../types";
 import { module1Lessons } from "./module-1";
 import { module2Lessons } from "./module-2";
+import { module3Lessons } from "./module-3";
 import { whereLesson } from "./lesson-where";
 
 function planned(number: number, slug: string, title: string): PlannedLesson {
@@ -32,12 +33,7 @@ export const sqlFromZero: Course = {
       number: 3,
       title: "DML: filling and changing data",
       description: "Add, change and remove rows safely.",
-      lessons: [
-        planned(13, "insert", "Adding rows with INSERT"),
-        planned(14, "update", "Changing rows with UPDATE"),
-        planned(15, "delete", "Removing rows with DELETE"),
-        planned(16, "when-rules-are-broken", "When rules are broken"),
-      ],
+      lessons: module3Lessons,
     },
     {
       number: 4,
