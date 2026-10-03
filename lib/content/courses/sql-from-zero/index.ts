@@ -4,6 +4,7 @@ import { module2Lessons } from "./module-2";
 import { module3Lessons } from "./module-3";
 import { module4Lessons } from "./module-4";
 import { module5Lessons } from "./module-5";
+import { module6Lessons } from "./module-6";
 
 function planned(number: number, slug: string, title: string): PlannedLesson {
   return { status: "planned", number, slug, title };
@@ -52,11 +53,7 @@ export const sqlFromZero: Course = {
       number: 6,
       title: "TCL: keeping changes safe",
       description: "BEGIN, COMMIT, ROLLBACK and SAVEPOINT in practice.",
-      lessons: [
-        planned(28, "begin-and-commit", "BEGIN and COMMIT"),
-        planned(29, "rollback", "Undoing with ROLLBACK"),
-        planned(30, "savepoints-and-concurrency", "SAVEPOINT and changes at the same time"),
-      ],
+      lessons: module6Lessons,
     },
     {
       number: 7,
