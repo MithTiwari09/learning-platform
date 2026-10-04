@@ -109,7 +109,11 @@ const dataTypes: Lesson = {
   title: "Data types: numbers, text, dates",
   minutes: 12,
   summary: "Choose the right kind of column for each piece of information.",
-  video: { title: "The right container for each thing" },
+  video: {
+    title: "The right container for each thing",
+    src: "/videos/sql-09-data-types.mp4",
+    poster: "/videos/sql-09-data-types.jpg",
+  },
   practiceDb: { seed: "" },
   body: `
 In a kitchen you keep soup in a pot and spoons in a drawer. Each column in a table is a container too, and its **type** says what belongs in it. Choosing the right type keeps data tidy and makes sorting and maths work properly.
