@@ -9,7 +9,7 @@ const bookshop = { seed: BOOKSHOP_SEED, showBookshopTables: true };
 const select: Lesson = {
   status: "ready",
   slug: "select",
-  number: 17,
+  number: 18,
   title: "SELECT and choosing columns",
   minutes: 12,
   summary: "Ask the bookshop for exactly the columns you want to see.",
@@ -123,7 +123,7 @@ Nothing in the table changes. \`SELECT\` only reads, so you can experiment freel
 const orderByAndLimit: Lesson = {
   status: "ready",
   slug: "order-by-and-limit",
-  number: 18,
+  number: 19,
   title: "Sorting and limiting",
   minutes: 12,
   summary: "Put results in order and keep just the top few, like the three newest books.",
@@ -242,7 +242,7 @@ The order of the parts is always the same: \`SELECT\`, \`FROM\`, then \`ORDER BY
 const combiningConditions: Lesson = {
   status: "ready",
   slug: "and-or-in-like",
-  number: 20,
+  number: 21,
   title: "AND, OR, IN, BETWEEN and LIKE",
   minutes: 15,
   summary: "Ask sharper questions by combining conditions and matching patterns.",
@@ -370,7 +370,7 @@ In this practice database, \`LIKE\` ignores the difference between capital and s
 const nulls: Lesson = {
   status: "ready",
   slug: "null",
-  number: 21,
+  number: 22,
   title: "Missing values: NULL",
   minutes: 12,
   summary: "Find and handle the blanks, like customers who never told us their city.",
@@ -483,7 +483,7 @@ This only changes what you see in the result, not what's stored.
 const aggregates: Lesson = {
   status: "ready",
   slug: "aggregates",
-  number: 22,
+  number: 23,
   title: "Counting and totals",
   minutes: 14,
   summary: "Turn many rows into one answer: how many, how much, the cheapest and the dearest.",
@@ -606,7 +606,7 @@ Long decimals look messy. \`ROUND(AVG(price), 2)\` rounds to two decimal places.
 const groupBy: Lesson = {
   status: "ready",
   slug: "group-by",
-  number: 23,
+  number: 24,
   title: "GROUP BY and HAVING",
   minutes: 15,
   summary: "Get a subtotal for every group, like the number of books in each genre.",

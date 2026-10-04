@@ -15,7 +15,7 @@ const CUSTOMERS =
 const createTable: Lesson = {
   status: "ready",
   slug: "create-table",
-  number: 7,
+  number: 8,
   title: "Your first table with CREATE TABLE",
   minutes: 12,
   summary: "Put up the bookshop's first shelf: a table with named columns.",
@@ -101,7 +101,7 @@ To see the tables you've made, run \`SELECT name, sql FROM sqlite_master;\`. Tha
 const dataTypes: Lesson = {
   status: "ready",
   slug: "data-types",
-  number: 8,
+  number: 9,
   title: "Data types: numbers, text, dates",
   minutes: 12,
   summary: "Choose the right kind of column for each piece of information.",
@@ -197,7 +197,7 @@ The idea is the same everywhere: pick the container that matches the thing.
 const primaryKeys: Lesson = {
   status: "ready",
   slug: "primary-keys",
-  number: 9,
+  number: 10,
   title: "Primary keys",
   minutes: 10,
   summary: "Give every row its own ID so the database can always tell rows apart.",
@@ -284,7 +284,7 @@ A handy SQLite feature: an \`INTEGER PRIMARY KEY\` fills itself in. If you add a
 const constraints: Lesson = {
   status: "ready",
   slug: "constraints",
-  number: 10,
+  number: 11,
   title: "Constraints: NOT NULL, UNIQUE, DEFAULT, CHECK",
   minutes: 14,
   summary: "Add rules to columns so bad data can't get in.",
@@ -376,7 +376,7 @@ Why bother, when you could just be careful? Because databases are used by many p
 const foreignKeys: Lesson = {
   status: "ready",
   slug: "foreign-keys",
-  number: 11,
+  number: 12,
   title: "Foreign keys",
   minutes: 14,
   summary: "Link tables together so every book points to a real author.",
@@ -478,7 +478,7 @@ Note: SQLite only enforces foreign keys after \`PRAGMA foreign_keys = ON;\`. You
 const alterAndDrop: Lesson = {
   status: "ready",
   slug: "alter-and-drop",
-  number: 12,
+  number: 13,
   title: "Changing and removing tables",
   minutes: 12,
   summary: "Add or rename columns with ALTER TABLE, and remove tables with DROP TABLE.",

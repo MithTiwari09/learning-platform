@@ -4,7 +4,7 @@ import { BOOKSHOP_SEED } from "../../datasets/bookshop";
 export const whereLesson: Lesson = {
   status: "ready",
   slug: "filtering-with-where",
-  number: 19,
+  number: 20,
   title: "Filtering rows with WHERE",
   minutes: 15,
   summary: "Keep only the rows you care about, like books under $10 or orders still pending.",
