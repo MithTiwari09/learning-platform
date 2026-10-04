@@ -19,7 +19,11 @@ const createTable: Lesson = {
   title: "Your first table with CREATE TABLE",
   minutes: 12,
   summary: "Put up the bookshop's first shelf: a table with named columns.",
-  video: { title: "Putting up the first shelf" },
+  video: {
+    title: "Putting up the first shelf",
+    src: "/videos/sql-08-create-table.mp4",
+    poster: "/videos/sql-08-create-table.jpg",
+  },
   practiceDb: { seed: "" },
   body: `
 Remember the five families of commands? Now you start building, with **DDL**. Your practice database is completely empty, like a new shop with bare walls. Let's put up the first shelf.
