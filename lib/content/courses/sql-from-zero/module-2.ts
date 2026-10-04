@@ -209,7 +209,11 @@ const primaryKeys: Lesson = {
   title: "Primary keys",
   minutes: 10,
   summary: "Give every row its own ID so the database can always tell rows apart.",
-  video: { title: "Every row needs a roll number" },
+  video: {
+    title: "Every row needs a roll number",
+    src: "/videos/sql-10-primary-keys.mp4",
+    poster: "/videos/sql-10-primary-keys.jpg",
+  },
   practiceDb: { seed: "" },
   body: `
 In Module 1 you met the **primary key**: the column that identifies exactly one row, like a roll number in a school register. Now you'll create one.
