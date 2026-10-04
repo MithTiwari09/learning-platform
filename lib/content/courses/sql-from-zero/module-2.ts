@@ -502,7 +502,11 @@ const alterAndDrop: Lesson = {
   title: "Changing and removing tables",
   minutes: 12,
   summary: "Add or rename columns with ALTER TABLE, and remove tables with DROP TABLE.",
-  video: { title: "Renovating the shop" },
+  video: {
+    title: "Renovating the shop",
+    src: "/videos/sql-13-alter-and-drop.mp4",
+    poster: "/videos/sql-13-alter-and-drop.jpg",
+  },
   practiceDb: {
     seed: `${AUTHORS}\n${CUSTOMERS}\nCREATE TABLE books (id INTEGER PRIMARY KEY, title TEXT NOT NULL, author_id INTEGER REFERENCES authors(id), price REAL, stock INTEGER);\nCREATE TABLE old_promotions (id INTEGER PRIMARY KEY, code TEXT);`,
   },
