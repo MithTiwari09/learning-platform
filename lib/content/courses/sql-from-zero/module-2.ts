@@ -396,7 +396,11 @@ const foreignKeys: Lesson = {
   title: "Foreign keys",
   minutes: 14,
   summary: "Link tables together so every book points to a real author.",
-  video: { title: "Pointing to another shelf" },
+  video: {
+    title: "Pointing to another shelf",
+    src: "/videos/sql-12-foreign-keys.mp4",
+    poster: "/videos/sql-12-foreign-keys.jpg",
+  },
   practiceDb: { seed: `PRAGMA foreign_keys = ON;\n${AUTHORS}\n${CUSTOMERS}` },
   body: `
 In Module 1 you saw that each book stores its author's id instead of the author's name. That link is a **foreign key**: a column whose values must match the primary key of another table.
