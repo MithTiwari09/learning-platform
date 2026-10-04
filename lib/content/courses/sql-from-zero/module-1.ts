@@ -367,7 +367,11 @@ const indexes: Lesson = {
   title: "How the database finds things fast",
   minutes: 10,
   summary: "Full table scans, indexes, and why indexes aren't free.",
-  video: { title: "The index at the back of the book" },
+  video: {
+    title: "The index at the back of the book",
+    src: "/videos/sql-05-indexes.mp4",
+    poster: "/videos/sql-05-indexes.jpg",
+  },
   body: `
 Pick up a big textbook and try to find every page that mentions "photosynthesis". You could read all 500 pages from start to finish. That works, but it's slow. Or you could turn to the **index** at the back, find "photosynthesis: pages 42, 87, 233", and jump straight there.
 
