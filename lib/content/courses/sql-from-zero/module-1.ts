@@ -250,7 +250,11 @@ const whatHappensWhenYouRunAQuery: Lesson = {
   title: "What happens when you run a query",
   minutes: 12,
   summary: "Follow one question through the database engine: parse, plan, execute, return.",
-  video: { title: "Ordering at a restaurant" },
+  video: {
+    title: "Ordering at a restaurant",
+    src: "/videos/sql-04-what-happens-when-you-run-a-query.mp4",
+    poster: "/videos/sql-04-what-happens-when-you-run-a-query.jpg",
+  },
   body: `
 Let's follow one question on its journey through the database: "Show me the titles of all Fantasy books." Think of it like ordering food at a restaurant.
 
