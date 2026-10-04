@@ -10,7 +10,7 @@ First course: **SQL from Zero**. It starts with plain-words intuition for how a 
 - Lesson page: video slot, lesson text, key ideas, practice, quick quiz, previous/next
 - Practice types: a real SQL editor running SQLite in the browser (sql.js) with automatic answer checking, "sort it" and "put in order" activities, and an animated "follow the query" walk-through
 - Progress and XP saved in the learner's browser (accounts come in stage 2)
-- Content: all 34 lessons of SQL from Zero, across 8 modules, from how the engine works to a final business report
+- Content: all 35 lessons of SQL from Zero, across 8 modules, from how the engine works to a final business report
 
 ## Run it
 

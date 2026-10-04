@@ -464,4 +464,266 @@ A $12 book isn't under 10, but it is under 15, so it's 'Standard'. \`ELSE\` catc
   ],
 };
 
-export const module5Lessons: Lesson[] = [whySeveralTables, innerJoin, leftJoin, subqueriesAndCase];
+const orderOfExecution: Lesson = {
+  status: "ready",
+  slug: "order-of-execution",
+  number: 29,
+  title: "The order SQL runs your query",
+  minutes: 18,
+  summary: "Why SQL runs FROM first and SELECT fifth, and the surprises that explains.",
+  video: {
+    title: "Packing an order in a warehouse",
+    src: "/videos/sql-29-order-of-execution.mp4",
+    poster: "/videos/sql-29-order-of-execution.jpg",
+  },
+  practiceDb: bookshop,
+  body: `
+You write a query top to bottom: \`SELECT\` first, then \`FROM\`, then \`WHERE\`, and so on. But the database doesn't run it in that order. It runs it in the order that makes sense for building the answer.
+
+### Think of a warehouse packing orders
+
+Imagine a warehouse worker making up a delivery of books.
+
+1. **FROM / JOIN:** go to the right shelves and pull everything off (and if you need two shelves, put their items side by side).
+2. **WHERE:** throw out every item that doesn't match the order slip.
+3. **GROUP BY:** sort what's left into boxes, one box per group.
+4. **HAVING:** throw out whole boxes that don't qualify.
+5. **SELECT:** write the label for each item or box: which details to show, and any calculations.
+6. **DISTINCT:** remove any labels that are exact duplicates.
+7. **ORDER BY:** line everything up in the right order.
+8. **LIMIT:** take only the first few off the front of the line.
+
+| You write it in this order | The database runs it in this order |
+|---|---|
+| SELECT | 1. FROM and JOIN |
+| DISTINCT | 2. WHERE |
+| FROM and JOIN | 3. GROUP BY |
+| WHERE | 4. HAVING |
+| GROUP BY | 5. SELECT |
+| HAVING | 6. DISTINCT |
+| ORDER BY | 7. ORDER BY |
+| LIMIT | 8. LIMIT |
+
+The one to remember: **SELECT runs fifth, not first.** Almost every surprise below comes from that.
+
+### Scenario 1: a simple query
+
+\`\`\`sql
+SELECT title
+FROM books
+WHERE genre = 'Fantasy';
+\`\`\`
+
+FROM fetches all 20 books. WHERE keeps the 3 Fantasy ones. SELECT keeps just the title. Result: *Guards! Guards!*, *Small Gods*, *A Wizard of Earthsea*.
+
+### Scenario 2: a nickname (alias) in ORDER BY works
+
+\`\`\`sql
+SELECT title, price * 0.9 AS sale_price
+FROM books
+ORDER BY sale_price
+LIMIT 3;
+\`\`\`
+
+SELECT (step 5) creates the nickname \`sale_price\`. ORDER BY (step 7) runs later, so the nickname already exists. Result: *The Blue Umbrella*, *Swami and Friends*, *Malgudi Days*.
+
+### Scenario 3: a nickname in WHERE usually fails
+
+\`\`\`sql
+SELECT title, price * 0.9 AS sale_price
+FROM books
+WHERE sale_price < 9;
+\`\`\`
+
+WHERE is step 2. SELECT, which creates \`sale_price\`, hasn't run yet. In PostgreSQL, SQL Server and Oracle this is an error ("column sale_price does not exist"). **Note:** SQLite, which runs this course's practice boxes, and MySQL are lenient and allow it, so it will work here. Don't rely on it at work. Repeat the calculation instead: \`WHERE price * 0.9 < 9\`.
+
+### Scenario 4: a total in WHERE always fails
+
+\`\`\`sql
+SELECT genre, COUNT(*)
+FROM books
+WHERE COUNT(*) > 2
+GROUP BY genre;
+\`\`\`
+
+Error: *misuse of aggregate: COUNT()*. WHERE (step 2) looks at one row at a time. Counting needs groups, and groups don't exist until GROUP BY (step 3). Filtering on a count is HAVING's job.
+
+### Scenario 5: WHERE and HAVING together
+
+\`\`\`sql
+SELECT genre, COUNT(*) AS cheap_books
+FROM books
+WHERE price < 15
+GROUP BY genre
+HAVING COUNT(*) >= 3
+ORDER BY cheap_books DESC;
+\`\`\`
+
+1. FROM: all 20 books.
+2. WHERE: keep books under $15 (17 books).
+3. GROUP BY: one box per genre (6 boxes).
+4. HAVING: keep boxes with 3 or more books (3 boxes).
+5. SELECT: show the genre and the count.
+6. ORDER BY: biggest count first.
+
+Result: Fiction 6, then Children 3 and Fantasy 3.
+
+**WHERE filters rows before grouping. HAVING filters groups after grouping.**
+
+### Scenario 6: JOIN happens first
+
+\`\`\`sql
+SELECT a.name, COUNT(*) AS books
+FROM books b
+JOIN authors a ON a.id = b.author_id
+WHERE b.price < 15
+GROUP BY a.name
+HAVING COUNT(*) >= 2
+ORDER BY books DESC, a.name
+LIMIT 3;
+\`\`\`
+
+The JOIN is part of step 1: the two tables are joined into one wide table *before* anything else happens. That's why WHERE can use columns from both tables. Result: Ruskin Bond 3, Ursula K. Le Guin 3, Agatha Christie 2.
+
+### Scenario 7: the LEFT JOIN trap, ON versus WHERE
+
+Every author, with their Fantasy books if they have any:
+
+\`\`\`sql
+SELECT a.name, b.title
+FROM authors a
+LEFT JOIN books b ON b.author_id = a.id AND b.genre = 'Fantasy';
+\`\`\`
+
+This returns all 10 authors. Those without Fantasy books show an empty title.
+
+Move the genre check to WHERE, and the result changes:
+
+\`\`\`sql
+SELECT a.name, b.title
+FROM authors a
+LEFT JOIN books b ON b.author_id = a.id
+WHERE b.genre = 'Fantasy';
+\`\`\`
+
+Only 3 rows come back, and the authors without Fantasy books disappear. The LEFT JOIN (step 1) kept every author, but then WHERE (step 2) threw away the rows with an empty genre. **A condition in ON shapes the join. A condition in WHERE filters afterwards.**
+
+### Scenario 8: DISTINCT comes after SELECT
+
+\`\`\`sql
+SELECT DISTINCT genre
+FROM books
+ORDER BY genre;
+\`\`\`
+
+SELECT picks out the genre from all 20 rows (with repeats). DISTINCT then removes the duplicates, leaving 6. ORDER BY sorts them A to Z.
+
+### Scenario 9: LIMIT is always last
+
+\`\`\`sql
+SELECT title, price
+FROM books
+ORDER BY price
+LIMIT 3;
+\`\`\`
+
+ORDER BY sorts all 20 books first, and only then does LIMIT take the top 3. So you really do get the 3 cheapest, not 3 random books sorted. Result: *The Blue Umbrella* $7.99, *Swami and Friends* $7.99, *Malgudi Days* $8.49.
+
+### Scenario 10: a subquery runs as its own query first
+
+\`\`\`sql
+SELECT title, price
+FROM books
+WHERE price > (SELECT AVG(price) FROM books)
+ORDER BY price DESC;
+\`\`\`
+
+The query inside the brackets is a complete query of its own, with its own FROM and SELECT. It works out the average price ($12.39) first. Then the outer query runs in the normal order, using that number in its WHERE. Result: 11 books, from *Sapiens* at $18.99 down to *Small Gods* at $12.49.
+
+### A note on the planner
+
+This is the *logical* order: the order the database promises your results will behave as if it followed. Behind the scenes, the planner from lesson 4 may take shortcuts, like using an index. It will never change the answer.
+`,
+  keyIdeas: [
+    "The database runs a query in this order: FROM and JOIN, WHERE, GROUP BY, HAVING, SELECT, DISTINCT, ORDER BY, LIMIT.",
+    "SELECT runs fifth, so nicknames made in SELECT work in ORDER BY but not in WHERE (in most databases).",
+    "WHERE filters rows before grouping. HAVING filters groups after grouping, so totals like COUNT belong in HAVING.",
+  ],
+  exercises: [
+    {
+      type: "order",
+      id: "run-order",
+      prompt: "Put the parts of a query in the order the database runs them.",
+      steps: ["FROM and JOIN", "WHERE", "GROUP BY", "HAVING", "SELECT", "DISTINCT", "ORDER BY", "LIMIT"],
+      hint: "Think of the warehouse: shelves, throw out, boxes, drop boxes, labels, duplicates, line up, take a few.",
+      xp: 20,
+    },
+    {
+      type: "sort",
+      id: "which-step",
+      prompt: "Which part of the query does each job?",
+      groups: ["FROM and JOIN", "WHERE", "HAVING", "DISTINCT", "LIMIT"],
+      items: [
+        { text: "Put books and authors side by side", group: "FROM and JOIN" },
+        { text: "Keep only books under $10", group: "WHERE" },
+        { text: "Keep only genres with 3 or more books", group: "HAVING" },
+        { text: "Remove repeated genres", group: "DISTINCT" },
+        { text: "Show only the first 5 results", group: "LIMIT" },
+      ],
+      hint: "WHERE works on single rows. HAVING works on whole groups.",
+      xp: 20,
+    },
+    {
+      type: "sql",
+      id: "fix-count-in-where",
+      kind: "Fix the query",
+      prompt: "This query should show each genre with 3 or more books, but it fails. Fix it.",
+      starter: "SELECT genre, COUNT(*)\nFROM books\nWHERE COUNT(*) >= 3\nGROUP BY genre;",
+      answer: "SELECT genre, COUNT(*) FROM books GROUP BY genre HAVING COUNT(*) >= 3;",
+      hint: "Totals can't be checked in WHERE, because groups don't exist yet. Use HAVING after GROUP BY.",
+      xp: 25,
+    },
+    {
+      type: "sql",
+      id: "cheap-genres",
+      kind: "Write a query",
+      prompt:
+        "For each genre, count the books under $15. Keep only genres with at least 2 such books, and show the biggest count first. Show the genre and the count.",
+      starter: "SELECT genre, COUNT(*) AS cheap_books\nFROM books\n",
+      answer:
+        "SELECT genre, COUNT(*) AS cheap_books FROM books WHERE price < 15 GROUP BY genre HAVING COUNT(*) >= 2 ORDER BY cheap_books DESC, genre;",
+      hint: "WHERE price < 15, then GROUP BY genre, then HAVING COUNT(*) >= 2, then ORDER BY.",
+      xp: 30,
+    },
+  ],
+  quiz: [
+    {
+      question: "Which part of a query runs first?",
+      choices: ["FROM", "SELECT", "ORDER BY"],
+      answer: 0,
+      why: "The database must fetch the rows before it can do anything with them.",
+    },
+    {
+      question: "Why can't WHERE use COUNT(*)?",
+      choices: [
+        "Because the groups don't exist yet when WHERE runs",
+        "Because COUNT only works in SELECT",
+        "Because WHERE only works on text",
+      ],
+      answer: 0,
+      why: "WHERE is step 2. Groups are only made at step 3, by GROUP BY.",
+    },
+    {
+      question: "You ask for the 3 cheapest books with ORDER BY price LIMIT 3. What happens first?",
+      choices: [
+        "ORDER BY sorts all the books, then LIMIT takes 3",
+        "LIMIT takes 3 books, then ORDER BY sorts them",
+        "They happen at the same time",
+      ],
+      answer: 0,
+      why: "LIMIT always runs last, so it takes the top of an already sorted list.",
+    },
+  ],
+};
+
+export const module5Lessons: Lesson[] = [whySeveralTables, innerJoin, leftJoin, subqueriesAndCase, orderOfExecution];

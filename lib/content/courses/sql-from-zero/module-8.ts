@@ -18,7 +18,7 @@ const reviewsShape = `SELECT name, upper(type), "notnull", pk FROM pragma_table_
 const buildTheBookshop: Lesson = {
   status: "ready",
   slug: "build-the-bookshop",
-  number: 33,
+  number: 34,
   title: "Project: add reviews to the bookshop",
   minutes: 25,
   summary: "Use every command family to design, fill and check a new feature: book reviews.",
@@ -159,7 +159,7 @@ INSERT INTO order_items VALUES
 const businessReport: Lesson = {
   status: "ready",
   slug: "business-report",
-  number: 34,
+  number: 35,
   title: "Project: the bookshop business report",
   minutes: 30,
   summary: "Answer the owner's real questions about sales, best sellers and reviews.",
