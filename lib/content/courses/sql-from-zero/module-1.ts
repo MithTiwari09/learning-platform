@@ -442,7 +442,11 @@ const transactions: Lesson = {
   title: "Keeping data safe: transactions",
   minutes: 12,
   summary: "All-or-nothing changes, the ACID promises, and how a database survives a crash.",
-  video: { title: "The $50 that must not vanish" },
+  video: {
+    title: "The $50 that must not vanish",
+    src: "/videos/sql-06-transactions.mp4",
+    poster: "/videos/sql-06-transactions.jpg",
+  },
   body: `
 Emma sends $50 to Lucas. For the database, that's two steps: take $50 out of Emma's account, then add $50 to Lucas's.
 
