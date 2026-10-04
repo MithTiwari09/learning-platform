@@ -21,7 +21,7 @@ INSERT INTO grants VALUES
 const grantAndRevoke: Lesson = {
   status: "ready",
   slug: "grant-and-revoke",
-  number: 31,
+  number: 32,
   title: "GRANT and REVOKE",
   minutes: 14,
   summary: "Decide who may read or change each table, and take access away when it's no longer needed.",

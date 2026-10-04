@@ -16,7 +16,7 @@ INSERT INTO customers VALUES (9, 'Mateo García', 'Madrid', 'Spain', '2025-09-10
 const whySeveralTables: Lesson = {
   status: "ready",
   slug: "why-several-tables",
-  number: 24,
+  number: 25,
   title: "Why data lives in several tables",
   minutes: 10,
   summary: "Why the bookshop keeps authors and books apart, and how keys connect them again.",
@@ -111,7 +111,7 @@ The cost is that one question can now need two tables. "Who wrote Small Gods?" m
 const innerJoin: Lesson = {
   status: "ready",
   slug: "inner-join",
-  number: 25,
+  number: 26,
   title: "INNER JOIN",
   minutes: 15,
   summary: "Put two tables side by side, like each book next to its author's name.",
@@ -232,7 +232,7 @@ Everything you've learned still works after the join: \`WHERE\`, \`ORDER BY\`, \
 const leftJoin: Lesson = {
   status: "ready",
   slug: "left-join",
-  number: 26,
+  number: 27,
   title: "LEFT JOIN",
   minutes: 15,
   summary: "Keep every row from one table, even when it has no match, and find what's missing.",
@@ -350,7 +350,7 @@ The order of the tables matters. The table that must keep every row goes first, 
 const subqueriesAndCase: Lesson = {
   status: "ready",
   slug: "subqueries-and-case",
-  number: 27,
+  number: 28,
   title: "Subqueries and CASE WHEN",
   minutes: 15,
   summary: "Use one query's answer inside another, and label rows with your own categories.",

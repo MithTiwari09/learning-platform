@@ -8,7 +8,7 @@ const bookshop = { seed: BOOKSHOP_SEED, showBookshopTables: true };
 const insert: Lesson = {
   status: "ready",
   slug: "insert",
-  number: 13,
+  number: 14,
   title: "Adding rows with INSERT",
   minutes: 12,
   summary: "Stock the shelves: add new authors, books and customers.",
@@ -121,7 +121,7 @@ Run \`SELECT * FROM authors;\` afterwards to see your new rows.
 const update: Lesson = {
   status: "ready",
   slug: "update",
-  number: 14,
+  number: 15,
   title: "Changing rows with UPDATE",
   minutes: 12,
   summary: "Fix a price, restock a book, run a sale, and why WHERE matters so much.",
@@ -234,7 +234,7 @@ UPDATE books SET price = ROUND(price * 0.9, 2) WHERE genre = 'Fantasy';  -- then
 const deleteRows: Lesson = {
   status: "ready",
   slug: "delete",
-  number: 15,
+  number: 16,
   title: "Removing rows with DELETE",
   minutes: 10,
   summary: "Remove the rows you don't need, and only those.",
@@ -334,7 +334,7 @@ At many companies, important rows are never deleted at all. Instead a column lik
 const whenRulesAreBroken: Lesson = {
   status: "ready",
   slug: "when-rules-are-broken",
-  number: 16,
+  number: 17,
   title: "When rules are broken",
   minutes: 12,
   summary: "Read constraint errors like a pro and fix what caused them.",

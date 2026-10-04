@@ -25,7 +25,7 @@ const balances = "SELECT id, balance FROM gift_cards ORDER BY id";
 const beginAndCommit: Lesson = {
   status: "ready",
   slug: "begin-and-commit",
-  number: 28,
+  number: 29,
   title: "BEGIN and COMMIT",
   minutes: 14,
   summary: "Group changes so they all happen together, or not at all.",
@@ -138,7 +138,7 @@ Run \`SELECT * FROM gift_cards;\` to see it.
 const rollback: Lesson = {
   status: "ready",
   slug: "rollback",
-  number: 29,
+  number: 30,
   title: "Undoing with ROLLBACK",
   minutes: 12,
   summary: "Change your mind before it's too late, and undo everything since BEGIN.",
@@ -253,7 +253,7 @@ ${giftCardsTable}`,
 const savepointsAndConcurrency: Lesson = {
   status: "ready",
   slug: "savepoints-and-concurrency",
-  number: 30,
+  number: 31,
   title: "SAVEPOINT and changes at the same time",
   minutes: 15,
   summary: "Undo just part of a transaction, and see how databases keep many users from colliding.",

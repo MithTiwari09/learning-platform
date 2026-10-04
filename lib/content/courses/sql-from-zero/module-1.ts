@@ -74,10 +74,103 @@ Almost every app you use, from banking and shopping to food delivery and school 
   ],
 };
 
+const dbmsAndRdbms: Lesson = {
+  status: "ready",
+  slug: "dbms-and-rdbms",
+  number: 2,
+  title: "DBMS and RDBMS",
+  minutes: 10,
+  summary: "The software that runs a database, and why most of it today is relational.",
+  video: {
+    title: "The librarian behind the library",
+    src: "/videos/sql-02-dbms-and-rdbms.mp4",
+    poster: "/videos/sql-02-dbms-and-rdbms.jpg",
+  },
+  body: `
+In the last lesson you met a short word: **DBMS**, a database management system. Let's open it up.
+
+Think of the library again. The books on the shelves are the **database**: the data itself. The librarians, the catalogue and the rules about borrowing are the **DBMS**: the software that looks after the data. It stores it, finds it when you ask, stops two people from getting in each other's way, and keeps it safe if the power fails. You never touch the shelves directly. You always go through the librarian.
+
+Early database software stored data in different shapes. Some kept it like a family tree, where every record had exactly one parent above it: the shop, then each author, then that author's books. That worked until data didn't fit the tree. *Good Omens* was written by Terry Pratchett and Neil Gaiman together, so it had to be copied under both authors, and copies can drift apart.
+
+In 1970, a researcher at IBM called Edgar Codd suggested a simpler idea: keep all data in **tables** of rows and columns, and link tables together using shared values called **keys**. A table in this idea is called a *relation*, so this is the **relational** model. Software built this way is a **relational database management system**, or **RDBMS**.
+
+| customers.id | name | city |
+|---|---|---|
+| 1 | Emma | London |
+| 2 | Yuki | Tokyo |
+
+| orders.id | customer_id | book |
+|---|---|---|
+| 101 | 2 | Sapiens |
+| 102 | 1 | Small Gods |
+| 103 | 2 | Norwegian Wood |
+
+Orders 101 and 103 both say customer 2, so both are Yuki's. Her name is written only once, so it can never disagree with itself.
+
+So what's the difference?
+
+| | DBMS | RDBMS |
+|---|---|---|
+| What it is | Any software that manages a database | A DBMS that stores data in linked tables |
+| How data is shaped | Could be files, trees, documents or tables | Always tables of rows and columns |
+| Links between data | Not always enforced | Tables are linked with keys, and the links are checked |
+| Language | Varies | SQL |
+| Examples | Any of the ones on the right, plus older or special-purpose systems | MySQL, PostgreSQL, Oracle, SQL Server, SQLite |
+
+The simplest way to remember it: **every RDBMS is a DBMS, but not every DBMS is relational.** Every square is a rectangle, but not every rectangle is a square.
+
+Today, most business databases are relational. Your bank, airline bookings, online shops and payroll almost certainly run on an RDBMS. Some apps also use non-relational databases, often called **NoSQL**, such as MongoDB or Redis, for special jobs. This course is about relational databases, because that's where SQL lives.
+`,
+  keyIdeas: [
+    "A DBMS is the software that stores, finds and protects the data in a database.",
+    "An RDBMS is a DBMS that keeps data in tables linked by keys, and you talk to it with SQL.",
+    "Every RDBMS is a DBMS, but not every DBMS is relational. Most business databases today are relational.",
+  ],
+  exercises: [
+    {
+      type: "sort",
+      id: "every-dbms-or-rdbms",
+      prompt: "Is each statement true of every DBMS, or only of a relational one (RDBMS)?",
+      groups: ["Every DBMS", "Only an RDBMS"],
+      items: [
+        { text: "Software that manages a database", group: "Every DBMS" },
+        { text: "Stores data so it can be found again later", group: "Every DBMS" },
+        { text: "Controls who is allowed to see or change the data", group: "Every DBMS" },
+        { text: "Keeps all data in tables of rows and columns", group: "Only an RDBMS" },
+        { text: "Links tables together using keys", group: "Only an RDBMS" },
+        { text: "Uses SQL as its language", group: "Only an RDBMS" },
+      ],
+      hint: "Think about what makes a database “relational”: tables, and links between them.",
+      xp: 20,
+    },
+  ],
+  quiz: [
+    {
+      question: "What is a DBMS?",
+      choices: ["A type of spreadsheet", "The software that manages a database", "A programming language"],
+      answer: 1,
+      why: "The DBMS is the librarian: the software that stores, finds and protects the data.",
+    },
+    {
+      question: "What makes a database “relational”?",
+      choices: ["It's very large", "Its data lives in tables that are linked by keys", "It runs in the cloud"],
+      answer: 1,
+      why: "“Relation” is the formal name for a table, and the links between tables are what make it relational.",
+    },
+    {
+      question: "Which of these is true?",
+      choices: ["Every RDBMS is a DBMS", "Every DBMS is an RDBMS", "DBMS and RDBMS mean exactly the same thing"],
+      answer: 0,
+      why: "An RDBMS is one kind of DBMS: the kind that uses linked tables.",
+    },
+  ],
+};
+
 const tablesRowsKeys: Lesson = {
   status: "ready",
   slug: "tables-rows-and-keys",
-  number: 2,
+  number: 3,
   title: "Tables, rows, columns and keys",
   minutes: 10,
   summary: "How a database organises information, using a school register as the example.",
@@ -149,7 +242,7 @@ Why bother? If an author's name is spelled wrong, you fix it in one place, and e
 const whatHappensWhenYouRunAQuery: Lesson = {
   status: "ready",
   slug: "what-happens-when-you-run-a-query",
-  number: 3,
+  number: 4,
   title: "What happens when you run a query",
   minutes: 12,
   summary: "Follow one question through the database engine: parse, plan, execute, return.",
@@ -262,7 +355,7 @@ All of this usually takes a fraction of a second. And it's why SQL lets you say 
 const indexes: Lesson = {
   status: "ready",
   slug: "indexes",
-  number: 4,
+  number: 5,
   title: "How the database finds things fast",
   minutes: 10,
   summary: "Full table scans, indexes, and why indexes aren't free.",
@@ -333,7 +426,7 @@ Indexes aren't free, though. Just as a textbook's index has to be updated whenev
 const transactions: Lesson = {
   status: "ready",
   slug: "transactions",
-  number: 5,
+  number: 6,
   title: "Keeping data safe: transactions",
   minutes: 12,
   summary: "All-or-nothing changes, the ACID promises, and how a database survives a crash.",
@@ -402,7 +495,7 @@ Later in the course you'll control transactions yourself with \`BEGIN\`, \`COMMI
 const commandFamilies: Lesson = {
   status: "ready",
   slug: "sql-command-families",
-  number: 6,
+  number: 7,
   title: "SQL's five families of commands",
   minutes: 10,
   summary: "DDL, DML, DQL, TCL and DCL: the map for the rest of the course.",
@@ -486,6 +579,7 @@ This is also the map of this course. Next, you'll start building: writing your f
 
 export const module1Lessons: Lesson[] = [
   whatIsADatabase,
+  dbmsAndRdbms,
   tablesRowsKeys,
   whatHappensWhenYouRunAQuery,
   indexes,
