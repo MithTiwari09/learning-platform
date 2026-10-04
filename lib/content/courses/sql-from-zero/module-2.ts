@@ -300,7 +300,11 @@ const constraints: Lesson = {
   title: "Constraints: NOT NULL, UNIQUE, DEFAULT, CHECK",
   minutes: 14,
   summary: "Add rules to columns so bad data can't get in.",
-  video: { title: "House rules for your data" },
+  video: {
+    title: "House rules for your data",
+    src: "/videos/sql-11-constraints.mp4",
+    poster: "/videos/sql-11-constraints.jpg",
+  },
   practiceDb: { seed: "" },
   body: `
 A good shop has rules: every parcel needs an address, and no two lockers share a number. Tables have rules too, called **constraints**. You add them after a column's type, and the database enforces them every time data is added or changed.
