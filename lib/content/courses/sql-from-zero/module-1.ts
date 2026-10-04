@@ -174,7 +174,11 @@ const tablesRowsKeys: Lesson = {
   title: "Tables, rows, columns and keys",
   minutes: 10,
   summary: "How a database organises information, using a school register as the example.",
-  video: { title: "The school register" },
+  video: {
+    title: "The school register",
+    src: "/videos/sql-03-tables-rows-and-keys.mp4",
+    poster: "/videos/sql-03-tables-rows-and-keys.jpg",
+  },
   body: `
 Think of a school attendance register. Across the top are headings: Roll number, Name, Class. Each line below is one student.
 
