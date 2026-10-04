@@ -515,7 +515,11 @@ const commandFamilies: Lesson = {
   title: "SQL's five families of commands",
   minutes: 10,
   summary: "DDL, DML, DQL, TCL and DCL: the map for the rest of the course.",
-  video: { title: "Running a shop" },
+  video: {
+    title: "Running a shop",
+    src: "/videos/sql-07-sql-command-families.mp4",
+    poster: "/videos/sql-07-sql-command-families.jpg",
+  },
   body: `
 SQL has many commands, but they fall into five families. Think about running our bookshop's database the way you'd run a real shop.
 
