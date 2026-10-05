@@ -12,7 +12,11 @@ const insert: Lesson = {
   title: "Adding rows with INSERT",
   minutes: 12,
   summary: "Stock the shelves: add new authors, books and customers.",
-  video: { title: "Stocking the shelves" },
+  video: {
+    title: "Stocking the shelves",
+    src: "/videos/sql-14-insert.mp4",
+    poster: "/videos/sql-14-insert.jpg",
+  },
   practiceDb: bookshop,
   body: `
 The shelves are up. Now it's time to stock them. From here on your practice database is the full bookshop, already filled with authors, books, customers and orders. You'll add to it with **DML**, starting with \`INSERT\`.
