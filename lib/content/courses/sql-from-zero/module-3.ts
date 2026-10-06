@@ -246,7 +246,11 @@ const deleteRows: Lesson = {
   title: "Removing rows with DELETE",
   minutes: 10,
   summary: "Remove the rows you don't need, and only those.",
-  video: { title: "Clearing the shelf, carefully" },
+  video: {
+    title: "Clearing the shelf, carefully",
+    src: "/videos/sql-16-delete.mp4",
+    poster: "/videos/sql-16-delete.jpg",
+  },
   practiceDb: bookshop,
   body: `
 \`DELETE\` removes whole rows from a table.
