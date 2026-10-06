@@ -129,7 +129,11 @@ const update: Lesson = {
   title: "Changing rows with UPDATE",
   minutes: 12,
   summary: "Fix a price, restock a book, run a sale, and why WHERE matters so much.",
-  video: { title: "Relabelling the price tags" },
+  video: {
+    title: "Relabelling the price tags",
+    src: "/videos/sql-15-update.mp4",
+    poster: "/videos/sql-15-update.jpg",
+  },
   practiceDb: bookshop,
   body: `
 Prices change, stock runs out, people move house. \`UPDATE\` changes values in rows that already exist.
