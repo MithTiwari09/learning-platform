@@ -350,7 +350,11 @@ const whenRulesAreBroken: Lesson = {
   title: "When rules are broken",
   minutes: 12,
   summary: "Read constraint errors like a pro and fix what caused them.",
-  video: { title: "The database says no" },
+  video: {
+    title: "The database says no",
+    src: "/videos/sql-17-when-rules-are-broken.mp4",
+    poster: "/videos/sql-17-when-rules-are-broken.jpg",
+  },
   practiceDb: { seed: `PRAGMA foreign_keys = ON;\n${BOOKSHOP_SEED}`, showBookshopTables: true },
   body: `
 In Module 2 you gave your tables rules. Now you'll see them protect the data. When a change breaks a rule, the database **refuses the whole statement** and explains why. Nothing is half-done.
