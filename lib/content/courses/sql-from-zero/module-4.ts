@@ -13,7 +13,11 @@ const select: Lesson = {
   title: "SELECT and choosing columns",
   minutes: 12,
   summary: "Ask the bookshop for exactly the columns you want to see.",
-  video: { title: "Asking your first questions" },
+  video: {
+    title: "Asking your first questions",
+    src: "/videos/sql-18-select.mp4",
+    poster: "/videos/sql-18-select.jpg",
+  },
   practiceDb: bookshop,
   body: `
 You've built the bookshop and filled it. Now comes the part people use most: asking it questions. That's **DQL**, and almost all of it is one command, \`SELECT\`.
