@@ -503,7 +503,11 @@ const aggregates: Lesson = {
   title: "Counting and totals",
   minutes: 14,
   summary: "Turn many rows into one answer: how many, how much, the cheapest and the dearest.",
-  video: { title: "From rows to answers" },
+  video: {
+    title: "From rows to answers",
+    src: "/videos/sql-23-counting-and-totals.mp4",
+    poster: "/videos/sql-23-counting-and-totals.jpg",
+  },
   practiceDb: bookshop,
   body: `
 So far each query has returned rows. Often you want a single answer instead: "How many books do we sell?" or "What's our average price?" **Aggregate functions** squash many rows into one value.
