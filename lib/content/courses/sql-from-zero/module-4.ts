@@ -386,7 +386,11 @@ const nulls: Lesson = {
   title: "Missing values: NULL",
   minutes: 12,
   summary: "Find and handle the blanks, like customers who never told us their city.",
-  video: { title: "The empty box" },
+  video: {
+    title: "The empty box",
+    src: "/videos/sql-22-null.mp4",
+    poster: "/videos/sql-22-null.jpg",
+  },
   practiceDb: {
     seed: `${BOOKSHOP_SEED}
 UPDATE customers SET city = NULL WHERE id IN (6, 8);
