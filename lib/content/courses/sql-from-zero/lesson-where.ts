@@ -8,7 +8,11 @@ export const whereLesson: Lesson = {
   title: "Filtering rows with WHERE",
   minutes: 15,
   summary: "Keep only the rows you care about, like books under $10 or orders still pending.",
-  video: { title: "WHERE in 3 minutes" },
+  video: {
+    title: "WHERE in 3 minutes",
+    src: "/videos/sql-20-where.mp4",
+    poster: "/videos/sql-20-where.jpg",
+  },
   practiceDb: { seed: BOOKSHOP_SEED, showBookshopTables: true },
   body: `
 So far every query has returned every row. \`WHERE\` lets you keep only the rows you care about.
