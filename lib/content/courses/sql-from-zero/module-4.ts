@@ -254,7 +254,11 @@ const combiningConditions: Lesson = {
   title: "AND, OR, IN, BETWEEN and LIKE",
   minutes: 15,
   summary: "Ask sharper questions by combining conditions and matching patterns.",
-  video: { title: "Sharper questions" },
+  video: {
+    title: "Sharper questions",
+    src: "/videos/sql-21-and-or-in-like.mp4",
+    poster: "/videos/sql-21-and-or-in-like.jpg",
+  },
   practiceDb: bookshop,
   body: `
 One condition is often not enough. "Fiction books under $13" is two conditions at once.
