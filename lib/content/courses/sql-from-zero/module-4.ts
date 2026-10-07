@@ -131,7 +131,11 @@ const orderByAndLimit: Lesson = {
   title: "Sorting and limiting",
   minutes: 12,
   summary: "Put results in order and keep just the top few, like the three newest books.",
-  video: { title: "Top 3 in one line" },
+  video: {
+    title: "Top 3 in one line",
+    src: "/videos/sql-19-order-by-and-limit.mp4",
+    poster: "/videos/sql-19-order-by-and-limit.jpg",
+  },
   practiceDb: bookshop,
   body: `
 Without instructions, a database returns rows in whatever order is quickest for it. When order matters, say so with \`ORDER BY\`.
