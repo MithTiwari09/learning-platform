@@ -20,7 +20,11 @@ const whySeveralTables: Lesson = {
   title: "Why data lives in several tables",
   minutes: 10,
   summary: "Why the bookshop keeps authors and books apart, and how keys connect them again.",
-  video: { title: "One fact, one place" },
+  video: {
+    title: "One fact, one place",
+    src: "/videos/sql-25-why-several-tables.mp4",
+    poster: "/videos/sql-25-why-several-tables.jpg",
+  },
   practiceDb: bookshop,
   body: `
 Imagine keeping the whole bookshop in one big table, with the author's name and country typed out next to every book. Terry Pratchett would be written out twice, Ursula K. Le Guin three times.
