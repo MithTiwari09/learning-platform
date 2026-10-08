@@ -630,7 +630,11 @@ const groupBy: Lesson = {
   title: "GROUP BY and HAVING",
   minutes: 15,
   summary: "Get a subtotal for every group, like the number of books in each genre.",
-  video: { title: "Sorting into piles" },
+  video: {
+    title: "Sorting into piles",
+    src: "/videos/sql-24-group-by.mp4",
+    poster: "/videos/sql-24-group-by.jpg",
+  },
   practiceDb: bookshop,
   body: `
 \`COUNT(*)\` gives one total. But what if you want a count for **each** genre? That's \`GROUP BY\`.
