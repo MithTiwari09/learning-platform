@@ -119,7 +119,11 @@ const innerJoin: Lesson = {
   title: "INNER JOIN",
   minutes: 15,
   summary: "Put two tables side by side, like each book next to its author's name.",
-  video: { title: "Matching rows across tables" },
+  video: {
+    title: "Matching rows across tables",
+    src: "/videos/sql-26-inner-join.mp4",
+    poster: "/videos/sql-26-inner-join.jpg",
+  },
   practiceDb: bookshop,
   body: `
 \`JOIN\` puts rows from two tables side by side, matching them up with the keys:
