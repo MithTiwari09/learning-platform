@@ -244,7 +244,11 @@ const leftJoin: Lesson = {
   title: "LEFT JOIN",
   minutes: 15,
   summary: "Keep every row from one table, even when it has no match, and find what's missing.",
-  video: { title: "Who's left out?" },
+  video: {
+    title: "Who's left out?",
+    src: "/videos/sql-27-left-join.mp4",
+    poster: "/videos/sql-27-left-join.jpg",
+  },
   practiceDb: bookshopWithGaps,
   body: `
 In this lesson's practice database, two new rows have arrived. Jane Austen has joined as an author, but none of her books are listed yet. Mateo García from Madrid has signed up, but hasn't ordered anything.
